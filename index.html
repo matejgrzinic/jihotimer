@@ -9,19 +9,22 @@
       color: #0f0;
       font-family: 'Courier New', monospace;
       display: flex;
+      flex-direction: column; /* Make sure the elements are stacked vertically */
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
-    .counter {
+    .counter, .message {
       font-size: 5rem;
       text-align: center;
+      margin: 0; /* Remove margin to keep them tight */
     }
   </style>
 </head>
 <body>
   <div class="counter" id="dayCounter">Loading...</div>
+  <div class="message">지호야, 사랑해!</div>
 
   <script>
     // Update interval (every 100 milliseconds)
