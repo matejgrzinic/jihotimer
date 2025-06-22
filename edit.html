@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Message</title>
+</head>
+<body>
+  <h1>Edit the Message</h1>
+  <textarea id="messageInput" rows="4" cols="50" placeholder="Type your message here..."></textarea><br>
+  <button onclick="saveMessage()">Save</button>
+
+  <!-- ✅ Use compat versions of Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <script>
+    // ✅ Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDDj_UMHj5bWZ6vMH8E2O-DCHZLrCR04FI",
+        authDomain: "jihocounter.firebaseapp.com",
+        databaseURL: "https://jihocounter-default-rtdb.firebaseio.com",
+        projectId: "jihocounter",
+        storageBucket: "jihocounter.firebasestorage.app",
+        messagingSenderId: "240931348020",
+        appId: "1:240931348020:web:8a29b2bc541332f5f7f461",
+        measurementId: "G-BHLGFNBZFT"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ✅ Authenticate anonymously
+    firebase.auth().signInAnonymously()
+      .then(() => console.log("Signed in anonymously"))
+      .catch((error) => alert("Auth failed: " + error.message));
+
+    // ✅ Save the message to Firebase
+    function saveMessage() {
+      const msg = document.getElementById("messageInput").value.trim();
+      if (msg) {
+        db.ref("message").set(msg);
+        alert("Message updated!");
+      } else {
+        alert("Please enter a message.");
+      }
+    }
+  </script>
+</body>
+</html>

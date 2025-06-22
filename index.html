@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Countdown to Jiho</title>
   <style>
     body {
@@ -9,50 +9,59 @@
       color: #0f0;
       font-family: 'Courier New', monospace;
       display: flex;
-      flex-direction: column; /* Make sure the elements are stacked vertically */
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
-    .counter, .message {
+    .counter, .message, .message-custom {
       font-size: 5rem;
       text-align: center;
-      margin: 0; /* Remove margin to keep them tight */
+      margin: 0;
     }
   </style>
 </head>
 <body>
   <div class="counter" id="dayCounter">Loading...</div>
   <div class="message">지호야, 사랑해!</div>
+  <div class="message-custom" id="messageDisplay"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
   <script>
-    // Update interval (every 100 milliseconds)
-    const updateInterval = 100;
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDj_UMHj5bWZ6vMH8E2O-DCHZLrCR04FI",
+      authDomain: "jihocounter.firebaseapp.com",
+      databaseURL: "https://jihocounter-default-rtdb.firebaseio.com",
+      projectId: "jihocounter",
+      storageBucket: "jihocounter.firebasestorage.app",
+      messagingSenderId: "240931348020",
+      appId: "1:240931348020:web:8a29b2bc541332f5f7f461",
+      measurementId: "G-BHLGFNBZFT"
+    };
 
-    function updateCounter() {
-      const counterElement = document.getElementById("dayCounter");
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-      // Get current time in UTC
+    // Listen for message changes
+    const msgEl = document.getElementById("messageDisplay");
+    db.ref("message-custom").on("value", (snap) => {
+      msgEl.textContent = snap.val() || "";
+    });
+
+    // Countdown
+    const updateCounter = () => {
       const now = new Date();
-
-      // Target date in KST: August 12, 16:25
-      // KST is UTC+9
-      const targetKST = new Date(Date.UTC(2025, 7, 12, 16 - 9, 25)); // Month is 0-indexed: 7 = August
-
-      // Calculate time difference in milliseconds
+      const targetKST = new Date(Date.UTC(2025, 7, 12, 16 - 9, 25));
       const diffMs = targetKST - now;
-
-      // Convert milliseconds to days with decimals
       const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-      // Show up to 8 decimal places
-      counterElement.textContent = diffDays.toFixed(8) + " days left";
-    }
-
-    // Start the counter
-    setInterval(updateCounter, updateInterval);
-    updateCounter(); // Initial call
+      document.getElementById("dayCounter").textContent = diffDays.toFixed(8) + " days left";
+    };
+    setInterval(updateCounter, 100);
+    updateCounter();
   </script>
 </body>
 </html>
