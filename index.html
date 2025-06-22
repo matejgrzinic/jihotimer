@@ -15,8 +15,13 @@
       height: 100vh;
       margin: 0;
     }
-    .counter, .message, .message-custom {
+    .counter, .message {
       font-size: 5rem;
+      text-align: center;
+      margin: 0;
+    }
+    .message-custom {
+      font-size: 4rem;
       text-align: center;
       margin: 0;
     }
@@ -48,7 +53,7 @@
 
     // Listen for message changes
     const msgEl = document.getElementById("messageDisplay");
-    db.ref("message-custom").on("value", (snap) => {
+    db.ref("message").on("value", (snap) => {
       msgEl.textContent = snap.val() || "";
     });
 
