@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Countdown to end of Jiho job</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .counter, .message {
+      font-size: 5rem;
+      text-align: center;
+      margin: 0;
+    }
+    .message-custom {
+      font-size: 4rem;
+      text-align: center;
+      margin: 0;
+    }
+    img {
+      max-width: 400px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="counter" id="dayCounter">Loading...</div>
+  <div class="message">화이팅! 조금만 더!</div>
+
+  <div class="image-container">
+    <img src="ok.jpg"
+  </div>
+
+  <script>
+    // Countdown
+    const updateCounter = () => {
+      const now = new Date();
+      const targetKST = new Date(Date.UTC(2025, 6, 31, 17 - 9, 30));
+      const diffMs = targetKST - now;
+      const diffDays = diffMs / (1000 * 60 * 60 * 24);
+      document.getElementById("dayCounter").textContent = diffDays.toFixed(8) + " days left";
+    };
+    setInterval(updateCounter, 100);
+    updateCounter();
+  </script>
+</body>
+</html>
