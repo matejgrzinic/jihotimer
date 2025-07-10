@@ -43,7 +43,7 @@
     // Countdown
     const updateCounter = () => {
       const now = new Date();
-      const targetKST = new Date(Date.UTC(2025, 6, 31, 17 - 9, 30));
+      const targetKST = new Date(Date.UTC(2025, 6, 28, 17 - 9, 30));
       const diffMs = targetKST - now;
       const diffDays = diffMs / (1000 * 60 * 60 * 24);
       document.getElementById("dayCounter").textContent = diffDays.toFixed(8) + " days left";
