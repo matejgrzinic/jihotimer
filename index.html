@@ -60,7 +60,7 @@
     // Countdown
     const updateCounter = () => {
       const now = new Date();
-      const targetBangkok = new Date(Date.UTC(2026, 03, 14, 8, 40));      
+      const targetBangkok = new Date(Date.UTC(2026, 02, 14, 8, 40));      
       const diffMs = targetBangkok - now;
       const diffDays = diffMs / (1000 * 60 * 60 * 24);
       document.getElementById("dayCounter").textContent = diffDays.toFixed(8) + " days left";
